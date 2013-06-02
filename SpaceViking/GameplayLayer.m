@@ -224,7 +224,29 @@
         //Sets the position of the vikingSprite onscreen. The screenSize.width/2 parameter takes the current screen width (1024 pixels on the iPad) and divides it by two. This places the Viking 512 pixels to the right of the screen, dead center on the X-axis. The Y-axis is being set to 17% of the screen height from the bottom. (Takes a float value: Ex. 1.0f)
         [vikingSprite setPosition:
          CGPointMake(screenSize.width/2,
-                     screenSize.height*0.17f)];               
+                     screenSize.height*0.17f)];
+        
+        // Animation example with a CCSpriteBatchNode
+        CCAnimation *vikingAnim = [CCAnimation animation];
+        
+        [vikingAnim addSpriteFrame:
+         [[CCSpriteFrameCache sharedSpriteFrameCache]
+          spriteFrameByName:@"sv_anim_2.png"]];
+        
+        [vikingAnim addSpriteFrame:
+         [[CCSpriteFrameCache sharedSpriteFrameCache]
+          spriteFrameByName:@"sv_anim_3.png"]];
+        
+        [vikingAnim addSpriteFrame:
+         [[CCSpriteFrameCache sharedSpriteFrameCache]
+          spriteFrameByName:@"sv_anim_4.png"]];
+        
+        [vikingAnim setDelayPerUnit:0.5f];
+        
+        CCAction *vikingAction = [CCRepeatForever actionWithAction:
+         [CCAnimate actionWithAnimation:vikingAnim]];
+        
+        [vikingSprite runAction:vikingAction];
         
         //Calls the initJoystickAndButtons method
         [self initJoystickAndButtons];
