@@ -187,16 +187,44 @@
         //Informs Cocos2D that the gameplayLayer will receive touch events.
         self.touchEnabled = YES;
         
-        //Allocates and initializes the vikingSprite instance variable with the image sv_anim_1.png
-        vikingSprite = [CCSprite spriteWithFile:@"viking1.png"];
+        //Loads the CCSpriteFrames into the Cocos2D cache. The frames are the dimensions and location of all of the images inside of the texture atlas. This plist is what allows Cocos2D to extract the images from the texture atlas PNG and render them onscreen. The frames also allow Cocos2D to recreate the trimmed transparent space that Zwoptex or TexturePacker removed in creating the texture atlas. Once more, you see the check for UI_USER_INTERFACE_IDIOM(), which determines if Space Viking is running on the iPad or the iPhone.
+        CCSpriteBatchNode *chapter2SpriteBatchNode;
+        
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        {
+            [[CCSpriteFrameCache sharedSpriteFrameCache]
+             addSpriteFramesWithFile:@"scene1atlas.plist"];
+            
+            //Creates the CCSpriteBatchNode and loads it with the large texture atlas image. These two steps are all that are needed to create and set up a CCSpriteBatchNode. Next you need only add CCSprites to the CCSpriteBatchNode and add the CCSpriteBatchNode to the layer, and Cocos2D takes care of the rest.
+            chapter2SpriteBatchNode =
+            [CCSpriteBatchNode
+             batchNodeWithFile:@"scene1atlas.png"];             
+        }
+        else
+        {
+            [[CCSpriteFrameCache sharedSpriteFrameCache]
+             addSpriteFramesWithFile:@"scene1atlasiPhone.plist"];
+            
+            //Creates the CCSpriteBatchNode and loads it with the large texture atlas image. These two steps are all that are needed to create and set up a CCSpriteBatchNode. Next you need only add CCSprites to the CCSpriteBatchNode and add the CCSpriteBatchNode to the layer, and Cocos2D takes care of the rest.
+            chapter2SpriteBatchNode =
+            [CCSpriteBatchNode
+             batchNodeWithFile:@"scene1atlasiPhone.png"];       
+        }
+        
+        //Creates the vikingSprite with only the name of the frame that Cocos2D should use to extract the image from the texture atlas.
+        vikingSprite =
+        [CCSprite spriteWithSpriteFrameName:@"sv_anim_1.png"]; 
+        
+        //Creates the vikingSprite with only the name of the frame that Cocos2D should use to extract the image from the texture atlas.
+        [chapter2SpriteBatchNode addChild:vikingSprite];  
+        
+        //	Adds the CCSpriteBatchNode to the layer so that all of the children (CCSprites) of the CCSpriteBatchNode can be rendered onscreen in one pass.
+        [self addChild:chapter2SpriteBatchNode];           
         
         //Sets the position of the vikingSprite onscreen. The screenSize.width/2 parameter takes the current screen width (1024 pixels on the iPad) and divides it by two. This places the Viking 512 pixels to the right of the screen, dead center on the X-axis. The Y-axis is being set to 17% of the screen height from the bottom. (Takes a float value: Ex. 1.0f)
         [vikingSprite setPosition:
          CGPointMake(screenSize.width/2,
                      screenSize.height*0.17f)];               
-        
-        //Adds the vikingSprite to the GameplayLayer. Having the vikingSprite as a child of the layer enables it to be rendered on the screen by Cocos2D
-        [self addChild:vikingSprite];
         
         //Calls the initJoystickAndButtons method
         [self initJoystickAndButtons];
