@@ -22,9 +22,9 @@
 @property (nonatomic,readwrite) float radius;
 
 /** Opacity: conforms to CCRGBAProtocol protocol */
-@property (nonatomic,readonly) GLubyte opacity;
+@property (nonatomic) GLubyte opacity; //READONLY
 /** Opacity: conforms to CCRGBAProtocol protocol */
-@property (nonatomic,readonly) ccColor3B color;
+@property (nonatomic) ccColor3B color; //READONLY
 /** BlendFunction. Conforms to CCBlendProtocol protocol */
 @property (nonatomic,readwrite) ccBlendFunc blendFunc;
 

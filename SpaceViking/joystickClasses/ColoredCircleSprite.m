@@ -16,6 +16,8 @@
 
 @implementation ColoredCircleSprite
 
+@synthesize displayedColor, displayedOpacity, cascadeColorEnabled, cascadeOpacityEnabled; //NOT USED - Just here to suppress warnings
+
 @synthesize radius=radius_;
 // Opacity and RGB color protocol
 @synthesize opacity=opacity_, color=color_;
@@ -165,7 +167,17 @@
 
 - (NSString*) description
 {
-	return [NSString stringWithFormat:@"<%@ = %08X | Color = %02X%02X%02X%02X | Radius = %1.2f>", [self class], self, color_.r, color_.g, color_.b, opacity_, radius_];
+	return [NSString stringWithFormat:@"<%@ = %8@ | Color = %02X%02X%02X%02X | Radius = %1.2f>", [self class], self, color_.r, color_.g, color_.b, opacity_, radius_];
+}
+
+- (void)updateDisplayedOpacity:(GLubyte)opacity
+{
+
+}
+
+- (void)updateDisplayedColor:(ccColor3B)color
+{
+    
 }
 
 @end
