@@ -58,7 +58,7 @@
     
     //Allocates and initializes a joystick base. The joystick base will contain the actual joystick and the sprites used to show the static joystick directional pad (DPAD) and the moveable thumb portion of the joystick.
     SneakyJoystickSkinnedBase *joystickBase =
-    [[[SneakyJoystickSkinnedBase alloc] init] autorelease];
+    [[SneakyJoystickSkinnedBase alloc] init];
     
     //Sets the position of the joystick base to the value corresponding to either iPad or iPhone dimensions.
     joystickBase.position = joystickBasePosition;
@@ -76,14 +76,14 @@
                              initWithRect:joystickBaseDimensions];
     
     //Assigns the joystick component of the joystick base to the GameplayLayer leftJoystick instance variable.
-    leftJoystick = [joystickBase.joystick retain];
+    leftJoystick = joystickBase.joystick;
     
     //Adds the joystick base to the GameplayLayer instance, making it visible on the lower-left portion of the screen.
     [self addChild:joystickBase];                                 
     
     //Allocates and initializes the jump button base.
     SneakyButtonSkinnedBase *jumpButtonBase =
-    [[[SneakyButtonSkinnedBase alloc] init] autorelease];
+    [[SneakyButtonSkinnedBase alloc] init];
     
     //Sets the base position onscreen.
     jumpButtonBase.position = jumpButtonPosition;
@@ -105,7 +105,7 @@
                              initWithRect:jumpButtonDimensions];
     
     //Assigns the button component of the jump button base to the GameplayLayer jumpButton instance variable.
-    jumpButton = [jumpButtonBase.button retain];                
+    jumpButton = jumpButtonBase.button;                
     
     //Sets this button to not act as a toggle. If a button has isToggleable set to YES, pressing it alternates the button state from ON to OFF. If the button has isToggleable set to NO, it turns OFF as soon as the player lifts his or her finger from it.
     jumpButton.isToggleable = NO;                                 
@@ -116,7 +116,7 @@
     //Similar process as above, but for the attack and jump buttons
     SneakyButtonSkinnedBase *attackButtonBase =
     
-    [[[SneakyButtonSkinnedBase alloc] init] autorelease];             
+    [[SneakyButtonSkinnedBase alloc] init];             
     attackButtonBase.position = attackButtonPosition;
     
     attackButtonBase.defaultSprite = [CCSprite
@@ -131,7 +131,7 @@
     attackButtonBase.button = [[SneakyButton alloc]
                                initWithRect:attackButtonDimensions];
     
-    attackButton = [attackButtonBase.button retain];
+    attackButton = attackButtonBase.button;
     
     attackButton.isToggleable = NO;
     
