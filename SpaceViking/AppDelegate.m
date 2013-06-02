@@ -6,8 +6,6 @@
 //  Copyright MrHappyAsthma 2013. All rights reserved.
 //
 
-#import "cocos2d.h"
-
 #import "AppDelegate.h"
 #import "IntroLayer.h"
 
@@ -16,8 +14,8 @@
 // The available orientations should be defined in the Info.plist file.
 // And in iOS 6+ only, you can override it in the Root View controller in the "supportedInterfaceOrientations" method.
 // Only valid for iOS 6+. NOT VALID for iOS 4 / 5.
--(NSUInteger)supportedInterfaceOrientations {
-	
+-(NSUInteger)supportedInterfaceOrientations
+{	
 	// iPhone only
 	if( [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone )
 		return UIInterfaceOrientationMaskLandscape;
@@ -44,7 +42,8 @@
 // This is not needed on iOS6 and could be added to the application:didFinish...
 -(void) directorDidReshapeProjection:(CCDirector*)director
 {
-	if(director.runningScene == nil) {
+	if(director.runningScene == nil)
+    {
 		// Add the first scene to the stack. The director will draw it immediately into the framebuffer. (Animation is started automatically when the view is displayed.)
 		// and add the scene to the stack. The director will run it when it automatically when the view is displayed.
 		[director runWithScene: [IntroLayer scene]];
@@ -191,4 +190,5 @@
 	
 	[super dealloc];
 }
+
 @end

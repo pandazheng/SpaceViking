@@ -6,8 +6,12 @@
 //  Copyright (c) 2013 MrHappyAsthma. All rights reserved.
 //
 
-#import "CCLayer.h"
+#import <Foundation/Foundation.h>
+#import "cocos2d.h"
 
 @interface BackgroundLayer : CCLayer
+{
+    
+}
 
 @end

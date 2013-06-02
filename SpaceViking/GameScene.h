@@ -1,5 +1,5 @@
 //
-//  GameplayScene.h
+//  GameScene.h
 //  SpaceViking
 //
 //  Created by MrHappyAsthma on 6/2/13.
@@ -7,7 +7,13 @@
 //
 
 #import "CCScene.h"
+#import "cocos2d.h"
+#import "BackgroundLayer.h"
+#import "GameplayLayer.h"
 
-@interface GameplayScene : CCScene
+@interface GameScene : CCScene
+{
+
+}
 
 @end
