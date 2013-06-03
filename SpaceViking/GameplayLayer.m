@@ -226,27 +226,33 @@
          CGPointMake(screenSize.width/2,
                      screenSize.height*0.17f)];
         
-        // Animation example with a CCSpriteBatchNode
-        CCAnimation *vikingAnim = [CCAnimation animation];
-        
-        [vikingAnim addSpriteFrame:
-         [[CCSpriteFrameCache sharedSpriteFrameCache]
-          spriteFrameByName:@"sv_anim_2.png"]];
-        
-        [vikingAnim addSpriteFrame:
-         [[CCSpriteFrameCache sharedSpriteFrameCache]
-          spriteFrameByName:@"sv_anim_3.png"]];
-        
-        [vikingAnim addSpriteFrame:
-         [[CCSpriteFrameCache sharedSpriteFrameCache]
-          spriteFrameByName:@"sv_anim_4.png"]];
-        
-        [vikingAnim setDelayPerUnit:0.5f];
-        
-        CCAction *vikingAction = [CCRepeatForever actionWithAction:
-         [CCAnimate actionWithAnimation:vikingAnim]];
-        
-        [vikingSprite runAction:vikingAction];
+        ///////////////////////////Example Animation////////////////////////////////
+        //Create the animation
+        //CCAnimation *vikingAnim = [CCAnimation animation];
+        //
+        //Load the frames (flip book pages) into the animation
+        //[vikingAnim addSpriteFrame:
+        // [[CCSpriteFrameCache sharedSpriteFrameCache]
+        //  spriteFrameByName:@"sv_anim_2.png"]];
+        //
+        //[vikingAnim addSpriteFrame:
+        // [[CCSpriteFrameCache sharedSpriteFrameCache]
+        //  spriteFrameByName:@"sv_anim_3.png"]];
+        //
+        //[vikingAnim addSpriteFrame:
+        // [[CCSpriteFrameCache sharedSpriteFrameCache]
+        //  spriteFrameByName:@"sv_anim_4.png"]];
+        //
+        //Set the delay between frames
+        //[vikingAnim setDelayPerUnit:0.5f];
+        //
+        //Create an action that repeats the animation forever
+        //CCAction *vikingAction = [CCRepeatForever actionWithAction:
+        // [CCAnimate actionWithAnimation:vikingAnim]];
+        //
+        //Run the action
+        //[vikingSprite runAction:vikingAction];
+        ///////////////////////////////////////////////////////////////////////////
         
         //Calls the initJoystickAndButtons method
         [self initJoystickAndButtons];
