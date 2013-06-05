@@ -7,7 +7,6 @@
 //
 
 #import "GameplayLayer.h"
-
 @implementation GameplayLayer
 
 -(void)initJoystickAndButtons
@@ -138,6 +137,51 @@
     [self addChild:attackButtonBase];                             
 }
 
+#pragma mark –
+#pragma mark Update Method
+-(void) update:(ccTime)deltaTime
+{
+    //Gets the list of all of the children CCSprites rendered by the CCSpriteBatchNode. In Space Viking this is a list of all of the GameCharacters, including the Viking and his enemies.
+    CCArray *listOfGameObjects =
+    [sceneSpriteBatchNode children];
+    
+    //Iterates through each of the Game Characters, calls their updateStateWithDeltaTime method, and passes a pointer to the list of all Game Characters.
+    for (GameCharacter *tempChar in listOfGameObjects)
+    {
+        //Calls the updateStateWithDeltaTime method on each of the Game Characters. This call allows for all of the characters to update their individual states to determine if they are colliding with any other objects in the game.
+        [tempChar updateStateWithDeltaTime:deltaTime andListOfGameObjects:
+         listOfGameObjects];                         
+    }
+}
+
+#pragma mark -
+//The createObjectOfType method sets up the enemies using the CCSpriteBatchNode and adds it to the layer.
+-(void)createObjectOfType:(GameObjectType)objectType
+               withHealth:(int)initialHealth
+               atLocation:(CGPoint)spawnLocation
+               withZValue:(int)ZValue
+{
+    if (objectType == kEnemyTypeRadarDish)
+    {
+        CCLOG(@"Creating the Radar Enemy");
+        RadarDish *radarDish = [[RadarDish alloc] initWithSpriteFrameName:
+                                @"radar_1.png"];
+        [radarDish setCharacterHealth:initialHealth];
+        [radarDish setPosition:spawnLocation];
+        
+        [sceneSpriteBatchNode addChild:radarDish
+                                     z:ZValue
+                                   tag:kRadarDishTagValue];
+    }
+}
+
+-(void)createPhaserWithDirection:(PhaserDirection)phaserDirection
+                     andPosition:(CGPoint)spawnPosition
+{
+    CCLOG(@"Placeholder for Chapter 5, see below");
+    return;
+}
+
 -(void)applyJoystick:(SneakyJoystick *)aJoystick toNode:(CCNode
                                                          *)tempNode forTimeDelta:(float)deltaTime
 {
@@ -168,17 +212,10 @@
     }
 }
 
-#pragma mark -
-#pragma mark Update Method
--(void) update:(ccTime)deltaTime
-{
-    [self applyJoystick:leftJoystick toNode:vikingSprite
-           forTimeDelta:deltaTime];
-}
-
 -(id)init
 {
     self = [super init];
+    
     if (self != nil)
     {
         //Gets the screen size from the Cocos2D Director. On the iPad, this returns 1024 × 768 pixels.
@@ -187,89 +224,89 @@
         //Informs Cocos2D that the gameplayLayer will receive touch events.
         self.touchEnabled = YES;
         
-        //Loads the CCSpriteFrames into the Cocos2D cache. The frames are the dimensions and location of all of the images inside of the texture atlas. This plist is what allows Cocos2D to extract the images from the texture atlas PNG and render them onscreen. The frames also allow Cocos2D to recreate the trimmed transparent space that Zwoptex or TexturePacker removed in creating the texture atlas. Once more, you see the check for UI_USER_INTERFACE_IDIOM(), which determines if Space Viking is running on the iPad or the iPhone.
-        CCSpriteBatchNode *chapter2SpriteBatchNode;
+        srandom(time(NULL)); // Seeds the random number generator
         
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         {
+            //Adds all of the frame dimensions specified in scene1atlas.plist to the Cocos2D Sprite Frame Cache. This will allow any CCSprite to be created by referencing one of the frames/images in the texture atlas. This line is also key in loading up the animations, since they reference spriteFrames loaded by the CCSpriteFrameCache here.
             [[CCSpriteFrameCache sharedSpriteFrameCache]
              addSpriteFramesWithFile:@"scene1atlas.plist"];
             
-            //Creates the CCSpriteBatchNode and loads it with the large texture atlas image. These two steps are all that are needed to create and set up a CCSpriteBatchNode. Next you need only add CCSprites to the CCSpriteBatchNode and add the CCSpriteBatchNode to the layer, and Cocos2D takes care of the rest.
-            chapter2SpriteBatchNode =
-            [CCSpriteBatchNode
-             batchNodeWithFile:@"scene1atlas.png"];             
+            //Initializes the CCSpriteBatchNode with the texture atlas image. The image scene1atlas.png becomes the master texture used by all of the CCSprites under the CCSpriteBatchNode. In Space Viking these are all of the GameObjects in the game, from the Viking to the Mallet power-up and the enemies.
+            sceneSpriteBatchNode =
+            [CCSpriteBatchNode batchNodeWithFile:@"scene1atlas.png"]; 
         }
         else
         {
             [[CCSpriteFrameCache sharedSpriteFrameCache]
              addSpriteFramesWithFile:@"scene1atlasiPhone.plist"];
-            
-            //Creates the CCSpriteBatchNode and loads it with the large texture atlas image. These two steps are all that are needed to create and set up a CCSpriteBatchNode. Next you need only add CCSprites to the CCSpriteBatchNode and add the CCSpriteBatchNode to the layer, and Cocos2D takes care of the rest.
-            chapter2SpriteBatchNode =
+            sceneSpriteBatchNode =
             [CCSpriteBatchNode
-             batchNodeWithFile:@"scene1atlasiPhone.png"];       
+             batchNodeWithFile:@"scene1atlasiPhone.png"];
         }
         
-        //Creates the vikingSprite with only the name of the frame that Cocos2D should use to extract the image from the texture atlas.
-        vikingSprite =
-        [CCSprite spriteWithSpriteFrameName:@"sv_anim_1.png"]; 
+        //Adds the CCSpriteBatchNode to the layer so it and all of its children (the GameObjects) are rendered onscreen.
+        [self addChild:sceneSpriteBatchNode z:0];
         
-        //Creates the vikingSprite with only the name of the frame that Cocos2D should use to extract the image from the texture atlas.
-        [chapter2SpriteBatchNode addChild:vikingSprite];  
-        
-        //	Adds the CCSpriteBatchNode to the layer so that all of the children (CCSprites) of the CCSpriteBatchNode can be rendered onscreen in one pass.
-        [self addChild:chapter2SpriteBatchNode];           
-        
-        //Sets the position of the vikingSprite onscreen. The screenSize.width/2 parameter takes the current screen width (1024 pixels on the iPad) and divides it by two. This places the Viking 512 pixels to the right of the screen, dead center on the X-axis. The Y-axis is being set to 17% of the screen height from the bottom. (Takes a float value: Ex. 1.0f)
-        [vikingSprite setPosition:
-         CGPointMake(screenSize.width/2,
-                     screenSize.height*0.17f)];
-        
-        ///////////////////////////Example Animation////////////////////////////////
-        //Create the animation
-        //CCAnimation *vikingAnim = [CCAnimation animation];
-        //
-        //Load the frames (flip book pages) into the animation
-        //[vikingAnim addSpriteFrame:
-        // [[CCSpriteFrameCache sharedSpriteFrameCache]
-        //  spriteFrameByName:@"sv_anim_2.png"]];
-        //
-        //[vikingAnim addSpriteFrame:
-        // [[CCSpriteFrameCache sharedSpriteFrameCache]
-        //  spriteFrameByName:@"sv_anim_3.png"]];
-        //
-        //[vikingAnim addSpriteFrame:
-        // [[CCSpriteFrameCache sharedSpriteFrameCache]
-        //  spriteFrameByName:@"sv_anim_4.png"]];
-        //
-        //Set the delay between frames
-        //[vikingAnim setDelayPerUnit:0.5f];
-        //
-        //Create an action that repeats the animation forever
-        //CCAction *vikingAction = [CCRepeatForever actionWithAction:
-        // [CCAnimate actionWithAnimation:vikingAnim]];
-        //
-        //Run the action
-        //[vikingSprite runAction:vikingAction];
-        ///////////////////////////////////////////////////////////////////////////
-        
-        //Calls the initJoystickAndButtons method
+        //Initializes the Joystick DPad and buttons.
         [self initJoystickAndButtons];
         
-        //A call to the Cocos2D scheduler to call the update method every time this layer is set to be rendered on the screen.
+        //Creates the Viking character using the already cached sprite frame of the Viking standing.
+        Viking *viking = [[Viking alloc]
+                          initWithSpriteFrameName:@"sv_anim_1.png"];
+        
+        [viking setJoystick:leftJoystick];
+        [viking setJumpButton:jumpButton];
+        [viking setAttackButton:attackButton];
+        [viking setPosition:ccp(screenSize.width * 0.35f,
+                                screenSize.height * 0.14f)];
+        [viking setCharacterHealth:100];
+        
+        //Adds the Viking to the CCSpriteBatchNode. The CCSpriteBatchNode does all of the rendering for the GameObjects. Therefore, the objects have to be added to the CCSpriteBatchNode and not to the layer. It is important to remember that the objects drawn from the texture atlas are added to the CCSpriteBatchNode and only the CCSpriteBatchNode is added to the CCLayer.
+        [sceneSpriteBatchNode
+         addChild:viking
+         z:kVikingSpriteZValue
+         tag:kVikingSpriteTagValue];                      
+        
+        //Adds the RadarDish to the CCSpriteBatchNode. The RadarDish health is set to 100 and the location as 87% of the screen width to the right (900 pixels from the left of the screen on the iPad) and 13% of the screen height (100 pixels from the bottom).
+        [self createObjectOfType:kEnemyTypeRadarDish
+                      withHealth:100
+                      atLocation:ccp(screenSize.width * 0.878f,
+                                     screenSize.height * 0.13f)
+                      withZValue:10];                            
+        
+        //Sets up a scheduler call that will fire the update method in GameplayLayer.m on every frame.
         [self scheduleUpdate];
-       
-        //Scales down the vikingSprite if Space Viking is not running on the iPad, resizing it to fit the screen resolution. In your games and in later chapters, you will want to use this check to load the appropriate iPhone/iPod touch artwork. In order to keep things simple, this example just scales down the Viking image.
-        if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
-        {
-            // If NOT on the iPad, scale down Ole
-            // In your games, use this to load art sized for the device
-            [vikingSprite setScaleX:screenSize.width/1024.0f];
-            [vikingSprite setScaleY:screenSize.height/768.0f];
-        }
     }
     return self;
 }
+
+///////////////////////////Example Animation////////////////////////////////
+//Create the animation
+//CCAnimation *vikingAnim = [CCAnimation animation];
+//
+//Load the frames (flip book pages) into the animation
+//[vikingAnim addSpriteFrame:
+// [[CCSpriteFrameCache sharedSpriteFrameCache]
+//  spriteFrameByName:@"sv_anim_2.png"]];
+//
+//[vikingAnim addSpriteFrame:
+// [[CCSpriteFrameCache sharedSpriteFrameCache]
+//  spriteFrameByName:@"sv_anim_3.png"]];
+//
+//[vikingAnim addSpriteFrame:
+// [[CCSpriteFrameCache sharedSpriteFrameCache]
+//  spriteFrameByName:@"sv_anim_4.png"]];
+//
+//Set the delay between frames
+//[vikingAnim setDelayPerUnit:0.5f];
+//
+//Create an action that repeats the animation forever
+//CCAction *vikingAction = [CCRepeatForever actionWithAction:
+// [CCAnimate actionWithAnimation:vikingAnim]];
+//
+//Run the action
+//[vikingSprite runAction:vikingAction];
+///////////////////////////////////////////////////////////////////////////
 
 @end

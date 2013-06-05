@@ -128,6 +128,8 @@
 		FA9B00CA175EB35000E06580 /* SneakyJoystickSkinnedBase.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9B00C0175EB35000E06580 /* SneakyJoystickSkinnedBase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA9B00CB175EB35000E06580 /* SneakyJoystickSkinnedDPadExample.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9B00C2175EB35000E06580 /* SneakyJoystickSkinnedDPadExample.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA9B00CC175EB35000E06580 /* SneakyJoystickSkinnedJoystickExample.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9B00C4175EB35000E06580 /* SneakyJoystickSkinnedJoystickExample.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		FA9B00CF175EBBF300E06580 /* RadarDish.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9B00CE175EBBF300E06580 /* RadarDish.m */; };
+		FA9B00D2175EC4DA00E06580 /* Viking.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9B00D1175EC4DA00E06580 /* Viking.m */; };
 		FA9BFEB6175EB09700E06580 /* GameCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9BFEB5175EB09700E06580 /* GameCharacter.m */; };
 		FA9BFEB9175EB0EA00E06580 /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9BFEB8175EB0EA00E06580 /* GameObject.m */; };
 		FA9BFEBF175EB0FB00E06580 /* EnemyRobot.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA9BFEBA175EB0FB00E06580 /* EnemyRobot.plist */; };
@@ -275,6 +277,10 @@
 		FA9B00C2175EB35000E06580 /* SneakyJoystickSkinnedDPadExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SneakyJoystickSkinnedDPadExample.m; sourceTree = "<group>"; };
 		FA9B00C3175EB35000E06580 /* SneakyJoystickSkinnedJoystickExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SneakyJoystickSkinnedJoystickExample.h; sourceTree = "<group>"; };
 		FA9B00C4175EB35000E06580 /* SneakyJoystickSkinnedJoystickExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SneakyJoystickSkinnedJoystickExample.m; sourceTree = "<group>"; };
+		FA9B00CD175EBBF300E06580 /* RadarDish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RadarDish.h; path = Classes/EnemyObjects/RadarDish.h; sourceTree = "<group>"; };
+		FA9B00CE175EBBF300E06580 /* RadarDish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RadarDish.m; path = Classes/EnemyObjects/RadarDish.m; sourceTree = "<group>"; };
+		FA9B00D0175EC4DA00E06580 /* Viking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Viking.h; path = Classes/GameObjects/Viking.h; sourceTree = "<group>"; };
+		FA9B00D1175EC4DA00E06580 /* Viking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Viking.m; path = Classes/GameObjects/Viking.m; sourceTree = "<group>"; };
 		FA9BFEB4175EB09700E06580 /* GameCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameCharacter.h; path = Classes/GameObjects/GameCharacter.h; sourceTree = "<group>"; };
 		FA9BFEB5175EB09700E06580 /* GameCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameCharacter.m; path = Classes/GameObjects/GameCharacter.m; sourceTree = "<group>"; };
 		FA9BFEB7175EB0EA00E06580 /* GameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameObject.h; path = Classes/GameObjects/GameObject.h; sourceTree = "<group>"; };
@@ -714,6 +720,8 @@
 				FA9BFEB8175EB0EA00E06580 /* GameObject.m */,
 				FA9BFEB4175EB09700E06580 /* GameCharacter.h */,
 				FA9BFEB5175EB09700E06580 /* GameCharacter.m */,
+				FA9B00D0175EC4DA00E06580 /* Viking.h */,
+				FA9B00D1175EC4DA00E06580 /* Viking.m */,
 			);
 			name = GameObjects;
 			sourceTree = "<group>";
@@ -737,6 +745,8 @@
 		FA9BFEAE175EA16C00E06580 /* EnemyObjects */ = {
 			isa = PBXGroup;
 			children = (
+				FA9B00CD175EBBF300E06580 /* RadarDish.h */,
+				FA9B00CE175EBBF300E06580 /* RadarDish.m */,
 			);
 			name = EnemyObjects;
 			sourceTree = "<group>";
@@ -1472,6 +1482,8 @@
 				FA9B00CA175EB35000E06580 /* SneakyJoystickSkinnedBase.m in Sources */,
 				FA9B00CB175EB35000E06580 /* SneakyJoystickSkinnedDPadExample.m in Sources */,
 				FA9B00CC175EB35000E06580 /* SneakyJoystickSkinnedJoystickExample.m in Sources */,
+				FA9B00CF175EBBF300E06580 /* RadarDish.m in Sources */,
+				FA9B00D2175EC4DA00E06580 /* Viking.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

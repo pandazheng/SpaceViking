@@ -1398,7 +1398,7 @@ static inline CGFloat bezierat( float a, float b, float c, float d, ccTime t )
 
 +(id) actionWithAnimation: (CCAnimation*)anim
 {
-	return [[[self alloc] initWithAnimation:anim] autorelease];
+	return [[self alloc] initWithAnimation:anim];
 }
 
 // delegate initializer

@@ -7,7 +7,7 @@
 //
 
 #define kVikingSpriteZValue 100
-#define kVikingSpriteTagValue 10
+#define kVikingSpriteTagValue 9
 #define kVikingIdleTimer 3.0f
 #define kVikingFistDamage 10
 #define kVikingMalletDamage 40

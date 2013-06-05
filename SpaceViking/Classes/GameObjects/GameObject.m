@@ -40,7 +40,7 @@
 
 -(CGRect)adjustedBoundingBox
 {
-    CCLOG(@"GameObect adjustedBoundingBox should be overridden");
+    CCLOG(@"GameObject adjustedBoundingBox should be overridden");
     return [self boundingBox];
 }
 
