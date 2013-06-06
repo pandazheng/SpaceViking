@@ -291,7 +291,7 @@ deltaTime
             if ([character gameObjectType] == kEnemyTypePhaser)
             {
                 [self changeState:kStateTakingDamage];
-                [character changeState:kStateDead];
+                [character setCharacterState:kStateDead];
             }
             else if ([character gameObjectType] ==
                        kPowerUpTypeMallet)
