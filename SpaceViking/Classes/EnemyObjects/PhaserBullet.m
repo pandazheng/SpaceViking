@@ -62,7 +62,8 @@
 -(BOOL)isOutsideOfScreen
 {
     CGPoint currentSpritePosition = [self position];
-    if ((currentSpritePosition.x < 0.0f) || (currentSpritePosition.x > screenSize.width))
+    if ((currentSpritePosition.x < 0.0f) || (
+                                             currentSpritePosition.x > screenSize.width))
     {
         [self changeState:kStateDead];
         return YES;
@@ -73,6 +74,12 @@
 -(void)updateStateWithDeltaTime:(ccTime)deltaTime
            andListOfGameObjects:(CCArray*)listOfGameObjects
 {
+    if (characterState == kStateDead)
+    {
+        [self changeState:kStateDead];
+        return;
+    }
+    
     if ([self isOutsideOfScreen])
         return;
     
