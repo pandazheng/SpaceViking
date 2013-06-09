@@ -14,8 +14,7 @@
 
 -(void)dropCargo
 {
-    CGPoint cargoDropPosition = ccp(screenSize.width/2,
-                                    screenSize.height);
+    CGPoint cargoDropPosition = ccp(screenSize.width/2, screenSize.height);
     if (hasDroppedMallet == NO)
     {
         CCLOG(@"SpaceCargoShip --> Mallet Powerup was created!");
@@ -33,10 +32,11 @@
 
 -(id) initWithSpriteFrameName:(NSString *)spriteFrameName
 {
-    if(self=[super initWithSpriteFrameName:spriteFrameName])
+    if( (self=[super initWithSpriteFrameName:spriteFrameName]) )
     {
         CCLOG(@"SpaceCargoShip init");
         hasDroppedMallet = NO;
+        
         float shipHeight = screenSize.height * 0.71f;
         CGPoint position1 = ccp(screenSize.width * -0.48f, shipHeight);
         CGPoint position2 = ccp(screenSize.width * 2.0f, shipHeight);
@@ -76,10 +76,8 @@
                       nil]
                      ];
         [self runAction:action];
-        
     }
     return self;
 }
 
 @end
-
